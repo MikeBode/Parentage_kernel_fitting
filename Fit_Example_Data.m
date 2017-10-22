@@ -38,9 +38,16 @@ FM = @(x,k,theta) x.*exp(k).*theta.*exp(-(exp(k)*x).^theta)/gamma(1/theta);
 
 % Run through the list of potential kernels and fit each one to the data
 Theta_list = [1 2 3 0.5];
+LowerBound = -10;
+UpperBound = 10;
 for th = 1:length(Theta_list);
    [Best_k(th),LL_k(th)] = fminbnd(@Kernel_Fitting_Function,LowerBound,UpperBound,[],... % These are the search input parameters
       Assignments,Distances,Reef_sizes,Sampled_reefs,Adult_sample_proportions,F,Theta_list(th)); % These are the extra parameters needed by the function
+end
+if min(Best_k) < 1.01.*LowerBound
+   disp('Optimisation is choosing lower bound - reduce value to avoid error')
+elseif max(Best_k) > 0.99.*UpperBound
+   disp('Optimisation is choosing upper bound - increase value to avoid error')
 end
 
 % Identify the best fit from the candidate kernels
