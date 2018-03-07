@@ -68,5 +68,5 @@ MATLAB, preferably version 9.2.0.556344 (R2017a) or later.
 
 Refer any questions to:
 
-Email: michael.bode@jcu.edu.au
+Email: michael.bode@qut.edu.au
 
