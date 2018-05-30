@@ -64,7 +64,7 @@ for b = 1:100
    Assignments_b = [Assignments(Bootstrap_resample,Bootstrap_resample); Assignments(end,:)];
    
    % Re-fit the kernel of the correct shape to this data
-   [Bootstrap_k(b),LL_b] = fminbnd(@Kernel_Fitting_Function,-10,1,[],... % These are the search input parameters
+   [Bootstrap_k(b),LL_b] = fminbnd(@Kernel_Fitting_Function,LowerBound,UpperBound,[],... % These are the search input parameters
       Assignments_b,Distances,Reef_sizes,Sampled_reefs_b,Adult_sample_proportions_b,F,Theta_list(Best_kernel)); % These are the extra parameters needed by the function
 end
 Confidence_bounds = quantile(Bootstrap_k,[0.975 0.025]);
