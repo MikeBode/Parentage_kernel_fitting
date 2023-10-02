@@ -62,10 +62,12 @@ for b = 1:100
    Sampled_reefs_b = Sampled_reefs(Bootstrap_resample);
    Adult_sample_proportions_b = Adult_sample_proportions(Bootstrap_resample);
    Assignments_b = [Assignments(Bootstrap_resample,Bootstrap_resample); Assignments(end,:)];
+   Distances_b = Distances(Bootstrap_resample,Bootstrap_resample);
+   Reef_sizes_b = Reef_sizes(Bootstrap_resample);
    
    % Re-fit the kernel of the correct shape to this data
    [Bootstrap_k(b),LL_b] = fminbnd(@Kernel_Fitting_Function,LowerBound,UpperBound,[],... % These are the search input parameters
-      Assignments_b,Distances,Reef_sizes,Sampled_reefs_b,Adult_sample_proportions_b,F,Theta_list(Best_kernel)); % These are the extra parameters needed by the function
+      Assignments_b,Distances_b,Reef_sizes_b,Sampled_reefs_b,Adult_sample_proportions_b,F,Theta_list(Best_kernel)); % These are the extra parameters needed by the function
 end
 Confidence_bounds = quantile(Bootstrap_k,[0.975 0.025]);
 
